@@ -1,4 +1,5 @@
 # Hello World
-Welcome!
 
-This is my personal site, which I will use to experiment with and have some fun.
+This is my personal site.
+
+I will use it to showcase personal projects.
