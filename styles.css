@@ -5,3 +5,11 @@
   font-weight: <weight>;
   font-style: normal;
 }
+
+.first-greeting-message {
+  font-size: 30px;
+}
+
+.second-greeting-message {
+  font-size: 20px;
+}
