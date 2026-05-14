@@ -7,13 +7,14 @@
 }
 
 .first-greeting-message {
-  font-size: 32px;
+  font-size: 64px;
 }
 
 .second-greeting-message {
-  font-size: 20px;
+  font-size: 48px;
 }
 
 .third-greeting-message {
   font-size: 16px;
+  font-weight: normal;
 }
