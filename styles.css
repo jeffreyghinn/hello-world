@@ -8,10 +8,12 @@
 
 .first-greeting-message {
   font-size: 64px;
+  font-weight: bold;
 }
 
 .second-greeting-message {
   font-size: 48px;
+  font-weight: bold;
 }
 
 .third-greeting-message {
