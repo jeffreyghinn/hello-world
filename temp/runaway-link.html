@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- 
+    Makes the page scale properly on mobile devices.
+    Without this, mobile browsers often "zoom out"
+    and make the page appear tiny.
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Runaway Link Demo</title>
+
+  <style>
+    /*
+      Remove the browser's default margin
+      so the page fills the entire screen cleanly.
+    */
+    body {
+      margin: 0;
+
+      /*
+        Make the body the full height of the viewport.
+        100vh = 100% of the visible browser height.
+      */
+      height: 100vh;
+
+      /*
+        Prevent scrollbars from appearing when
+        the link moves around the screen.
+      */
+      overflow: hidden;
+
+      /*
+        Dark background just for appearance.
+      */
+      background: #111;
+
+      /*
+        Set a clean default font.
+      */
+      font-family: Arial, sans-serif;
+
+      /*
+        Important:
+        This allows absolutely positioned children
+        to position themselves relative to the body.
+      */
+      position: relative;
+    }
+
+    /*
+      Styling for the moving link.
+    */
+    #runaway-link {
+      /*
+        Absolute positioning allows us to move
+        the link freely anywhere on the screen
+        using left/top values.
+      */
+      position: absolute;
+
+      /*
+        Start roughly centered on screen.
+      */
+      left: 50%;
+      top: 50%;
+
+      /*
+        translate(-50%, -50%) shifts the element
+        backward by half of its own width/height.
+
+        Without this, the TOP LEFT corner of the link
+        would sit in the center of the screen instead
+        of the actual middle of the link.
+      */
+      transform: translate(-50%, -50%);
+
+      /*
+        Visual styling.
+      */
+      color: white;
+      font-size: 2rem;
+      text-decoration: none;
+
+      padding: 12px 20px;
+
+      border: 2px solid white;
+      border-radius: 10px;
+
+      /*
+        Adds a tiny animation effect whenever
+        left/top changes happen.
+
+        Without this, the movement would look
+        more abrupt and robotic.
+      */
+      transition: left 0.08s linear, top 0.08s linear;
+
+      /*
+        Prevents text selection while chasing it.
+      */
+      user-select: none;
+
+      /*
+        Cursor style.
+      */
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!--
+    The link we want to make "impossible" to click.
+  -->
+  <a id="runaway-link" href="#">
+    Click Me
+  </a>
+
+  <script>
+
+    /*
+      Grab the link element from the page
+      and store it in a variable for easy access.
+    */
+    const link = document.getElementById("runaway-link");
+
+
+
+    /*
+      Listen for mouse movement anywhere on the page.
+
+      Every time the mouse moves,
+      this function runs again.
+    */
+    document.addEventListener("mousemove", (event) => {
+
+      /*
+        Get the link's current position and size.
+
+        getBoundingClientRect() returns an object
+        containing:
+        - left
+        - top
+        - width
+        - height
+        - right
+        - bottom
+
+        based on its current position in the viewport.
+      */
+      const rect = link.getBoundingClientRect();
+
+
+
+      /*
+        Calculate the CENTER point of the link.
+
+        We use the center instead of the top-left corner
+        because distance calculations feel much more natural.
+      */
+      const linkCenterX = rect.left + rect.width / 2;
+      const linkCenterY = rect.top + rect.height / 2;
+
+
+
+      /*
+        Calculate the horizontal and vertical distance
+        BETWEEN the mouse and the center of the link.
+
+        Example:
+        If dx is positive:
+          the link is to the RIGHT of the mouse
+
+        If dx is negative:
+          the link is to the LEFT of the mouse
+      */
+      const dx = linkCenterX - event.clientX;
+      const dy = linkCenterY - event.clientY;
+
+
+
+      /*
+        Calculate the true distance between the mouse
+        and the link using the Pythagorean theorem.
+
+        sqrt(dx² + dy²)
+
+        This gives us a real circular distance.
+      */
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+
+
+      /*
+        Define how close the mouse must get
+        before the link starts escaping.
+      */
+      const triggerDistance = 150;
+
+
+
+      /*
+        Only move the link if the mouse
+        is close enough.
+      */
+      if (distance < triggerDistance) {
+
+        /*
+          How far the link should jump away
+          each time the mouse approaches.
+        */
+        const moveAmount = 120;
+
+
+
+        /*
+          Calculate the angle BETWEEN:
+          - the mouse
+          - the link
+
+          atan2() returns an angle in radians.
+
+          This lets us move directly AWAY
+          from the mouse.
+        */
+        const angle = Math.atan2(dy, dx);
+
+
+
+        /*
+          Calculate the new position.
+
+          cos(angle) gives horizontal movement
+          sin(angle) gives vertical movement
+
+          We multiply by moveAmount to control
+          how far the jump is.
+        */
+        let newX = rect.left + Math.cos(angle) * moveAmount;
+        let newY = rect.top + Math.sin(angle) * moveAmount;
+
+
+
+        /*
+          Prevent the link from leaving the screen.
+
+          Math.max keeps it from going below 0.
+          Math.min keeps it from exceeding the viewport.
+        */
+        newX = Math.max(
+          0,
+          Math.min(window.innerWidth - rect.width, newX)
+        );
+
+        newY = Math.max(
+          0,
+          Math.min(window.innerHeight - rect.height, newY)
+        );
+
+
+
+        /*
+          Apply the new position to the link.
+
+          left/top must be strings with "px".
+        */
+        link.style.left = `${newX}px`;
+        link.style.top = `${newY}px`;
+
+
+
+        /*
+          Remove the original centering transform.
+
+          Important:
+          Once we start manually positioning the link,
+          the translate(-50%, -50%) would interfere
+          with positioning calculations.
+        */
+        link.style.transform = "none";
+      }
+    });
+  </script>
+
+</body>
+</html>
