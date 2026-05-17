@@ -121,6 +121,15 @@
 
   <script>
 
+    // How long the link should evade the mouse (in milliseconds)
+    const escapeDuration = 5000;
+    
+    // Store the time when the page loaded
+    const startTime = Date.now();
+    
+    // Track whether the link is still escaping
+    let escapingEnabled = true;
+
     /*
       Grab the link element from the page
       and store it in a variable for easy access.
@@ -136,6 +145,15 @@
       this function runs again.
     */
     document.addEventListener("mousemove", (event) => {
+
+      // Check how much time has passed
+      const elapsedTime = Date.now() - startTime;
+      
+      // If enough time has passed,
+      // disable the escaping behavior
+      if (elapsedTime > escapeDuration) {
+        escapingEnabled = false;
+      }
 
       /*
         Get the link's current position and size.
@@ -206,7 +224,7 @@
         Only move the link if the mouse
         is close enough.
       */
-      if (distance < triggerDistance) {
+      if (distance < triggerDistance && escapingEnabled) {
 
         /*
           How far the link should jump away
