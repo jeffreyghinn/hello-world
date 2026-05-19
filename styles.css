@@ -1,3 +1,7 @@
+body {
+  overflow: hidden;
+}
+
 /* utlity class to add the Inter font to an element */
 .inter-font {
   font-family: "Inter", sans-serif;
