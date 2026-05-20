@@ -1,28 +1,7 @@
 body {
   overflow: hidden;
-}
-
-/* utlity class to add the Inter font to an element */
-.inter-font {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: <weight>;
   font-style: normal;
 }
-
-/*
-.first-greeting-message {
-  font-size: 64px;
-  font-weight: bold;
-}
-
-.second-greeting-message {
-  font-size: 48px;
-  font-weight: semi-bold;
-}
-
-.third-greeting-message {
-  font-size: 16px;
-  font-weight: normal;
-}
-*/
