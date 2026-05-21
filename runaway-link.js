@@ -2,4 +2,6 @@
 const link = document.getElementById("runaway-terms-link");
 
 /* Listen for mouse movement anywhere on the page. Every time the mouse moves this function runs again. */
-document.addEventListener()
+document.addEventListener(
+  "mousemove",
+);
