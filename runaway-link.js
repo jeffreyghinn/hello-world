@@ -3,36 +3,28 @@ const link = document.getElementById("runaway-terms-link");
 
 /* Listen for mouse movement anywhere on the page. Every time the mouse moves this function runs again. */
 document.addEventListener(
-  "mousemove", (event) => {
+  "mousemove", (mouseMove) => {
     /* Get the link's size and location */
     const linkRect = link.getBoundingClientRect();
 
     /* Calculate the link's center point */
     const linkCenterX = linkRect.left + linkRect.width / 2;
     const linkCenterY = linkRect.top + linkRect.height / 2;
+
+    /*
+    Calculate the horizontal and vertical delta between the mouse and the center of the link.
+    If deltaX is positive, the mouse is to the left of the link.
+    If deltaY is positive, the mouse is above the link.
+    */
+    const deltaX = linkCenterX - mouseMove.clientX;
+    const deltaY - linkCenterY - mouseMove.clientY;
   }
 );
 
 
 
 /*
-************ The below code is from ChatGPT ***********
-
-
-      /*
-        Calculate the horizontal and vertical distance
-        BETWEEN the mouse and the center of the link.
-
-        Example:
-        If dx is positive:
-          the link is to the RIGHT of the mouse
-
-        If dx is negative:
-          the link is to the LEFT of the mouse
-      */
-      const dx = linkCenterX - event.clientX;
-      const dy = linkCenterY - event.clientY;
-
+************ The below code is a reference from ChatGPT ***********
 
 
       /*
