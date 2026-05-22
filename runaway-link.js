@@ -18,6 +18,12 @@ document.addEventListener(
     */
     const deltaX = linkCenterX - mouseMove.clientX;
     const deltaY - linkCenterY - mouseMove.clientY;
+
+    /*
+    Calculate the straight distance between the mouse and the link using Pythagorean theorem.
+    sqrt(deltaX² + deltaY²)
+    */
+    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
   }
 );
 
@@ -25,19 +31,6 @@ document.addEventListener(
 
 /*
 ************ The below code is a reference from ChatGPT ***********
-
-
-      /*
-        Calculate the true distance between the mouse
-        and the link using the Pythagorean theorem.
-
-        sqrt(dx² + dy²)
-
-        This gives us a real circular distance.
-      */
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-
 
       /*
         Define how close the mouse must get
