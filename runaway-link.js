@@ -16,7 +16,7 @@ document.addEventListener(
 
 
 /*
-************The below code is from ChatGPT.***********
+************ The below code is from ChatGPT ***********
 
 
       /*
@@ -140,4 +140,6 @@ document.addEventListener(
 
 </body>
 </html>
+
+************* End of reference code from ChatGPT **************
 */
