@@ -27,6 +27,9 @@ document.addEventListener(
     sqrt(deltaX² + deltaY²)
     */
     const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+    /* Set a limit for how close the mouse can get to the link */
+    const distanceLimit = 150;
   }
 );
 
@@ -34,14 +37,6 @@ document.addEventListener(
 
 /*
 ************ The below code is a reference from ChatGPT ***********
-
-      /*
-        Define how close the mouse must get
-        before the link starts escaping.
-      */
-      const triggerDistance = 150;
-
-
 
       /*
         Only move the link if the mouse
