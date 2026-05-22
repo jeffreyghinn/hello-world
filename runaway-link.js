@@ -11,12 +11,7 @@ document.addEventListener(
 /*
 ************The below code is from ChatGPT.***********
 
-    /*
-      Listen for mouse movement anywhere on the page.
 
-      Every time the mouse moves,
-      this function runs again.
-    */
     document.addEventListener("mousemove", (event) => {
 
       /*
