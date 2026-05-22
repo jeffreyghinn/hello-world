@@ -30,6 +30,12 @@ document.addEventListener(
 
     /* Set a limit for how close the mouse can get to the link */
     const distanceLimit = 150;
+
+    /* Move the link if the mouse is close enough to it */
+    if (distance < distanceLimit) {
+      /* Set a distance for the link to move when the mouse is too close */
+      const linkMoveDistance = 120;
+    }
   }
 );
 
@@ -38,19 +44,7 @@ document.addEventListener(
 /*
 ************ The below code is a reference from ChatGPT ***********
 
-      /*
-        Only move the link if the mouse
-        is close enough.
-      */
-      if (distance < triggerDistance) {
-
-        /*
-          How far the link should jump away
-          each time the mouse approaches.
-        */
-        const moveAmount = 120;
-
-
+/* below is still inside the if statement */
 
         /*
           Calculate the angle BETWEEN:
