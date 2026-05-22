@@ -4,7 +4,12 @@ const link = document.getElementById("runaway-terms-link");
 /* Listen for mouse movement anywhere on the page. Every time the mouse moves this function runs again. */
 document.addEventListener(
   "mousemove", (event) => {
-    
+    /* Get the link's size and location */
+    const linkRect = link.getBoundingClientRect();
+
+    /* Calculate the link's center point */
+    const linkCenterX = linkRect.left + linkRect.width / 2;
+    const linkCenterY = linkRect.top + linkRect.height / 2;
   }
 );
 
@@ -12,34 +17,6 @@ document.addEventListener(
 
 /*
 ************The below code is from ChatGPT.***********
-
-      /*
-        Get the link's current position and size.
-
-        getBoundingClientRect() returns an object
-        containing:
-        - left
-        - top
-        - width
-        - height
-        - right
-        - bottom
-
-        based on its current position in the viewport.
-      */
-      const rect = link.getBoundingClientRect();
-
-
-
-      /*
-        Calculate the CENTER point of the link.
-
-        We use the center instead of the top-left corner
-        because distance calculations feel much more natural.
-      */
-      const linkCenterX = rect.left + rect.width / 2;
-      const linkCenterY = rect.top + rect.height / 2;
-
 
 
       /*
