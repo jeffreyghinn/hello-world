@@ -34,7 +34,18 @@ document.addEventListener(
     /* Move the link if the mouse is close enough to it */
     if (distance < distanceLimit) {
       /* Set a distance for the link to move when the mouse is too close */
-      const linkMoveDistance = 120;
+      const moveDistance = 120;
+
+      /* Calculate the angle between the mouse and the link so it can move directly away from the mouse */
+      const angle = Math.atan2(deltaY, deltaX);
+
+      /*
+      Calculate the new position.
+      cos(angle) gives horizontal movement.
+      sin(angle) gives vertical movement.
+      */
+      let newX = linkRect.left + Math.cos(angle) * moveDistance;
+      let newY - linkRect.right + Math.sin(angle) * moveDistance;
     }
   }
 );
@@ -44,35 +55,7 @@ document.addEventListener(
 /*
 ************ The below code is a reference from ChatGPT ***********
 
-/* below is still inside the if statement */
-
-        /*
-          Calculate the angle BETWEEN:
-          - the mouse
-          - the link
-
-          atan2() returns an angle in radians.
-
-          This lets us move directly AWAY
-          from the mouse.
-        */
-        const angle = Math.atan2(dy, dx);
-
-
-
-        /*
-          Calculate the new position.
-
-          cos(angle) gives horizontal movement
-          sin(angle) gives vertical movement
-
-          We multiply by moveAmount to control
-          how far the jump is.
-        */
-        let newX = rect.left + Math.cos(angle) * moveAmount;
-        let newY = rect.top + Math.sin(angle) * moveAmount;
-
-
+/* below is all inside the if statement */
 
         /*
           Prevent the link from leaving the screen.
@@ -111,12 +94,6 @@ document.addEventListener(
           with positioning calculations.
         */
         link.style.transform = "none";
-      }
-    });
-  </script>
-
-</body>
-</html>
 
 ************* End of reference code from ChatGPT **************
 */
