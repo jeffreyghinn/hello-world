@@ -3,16 +3,15 @@ const link = document.getElementById("runaway-terms-link");
 
 /* Listen for mouse movement anywhere on the page. Every time the mouse moves this function runs again. */
 document.addEventListener(
-  "mousemove",
+  "mousemove", (event) => {
+    
+  }
 );
 
 
 
 /*
 ************The below code is from ChatGPT.***********
-
-
-    document.addEventListener("mousemove", (event) => {
 
       /*
         Get the link's current position and size.
