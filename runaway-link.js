@@ -60,37 +60,8 @@ document.addEventListener(
       );
 
       /* Apply the new location to the link */
-      
+      link.style.left = `${newX}px`;
+      link.style.top = `${newY}px`;
     }
   }
 );
-
-
-
-/*
-************ The below code is a reference from ChatGPT ***********
-
-/* below is all inside the if statement */
-
-        /*
-          Apply the new position to the link.
-
-          left/top must be strings with "px".
-        */
-        link.style.left = `${newX}px`;
-        link.style.top = `${newY}px`;
-
-
-
-        /*
-          Remove the original centering transform.
-
-          Important:
-          Once we start manually positioning the link,
-          the translate(-50%, -50%) would interfere
-          with positioning calculations.
-        */
-        link.style.transform = "none";
-
-************* End of reference code from ChatGPT **************
-*/
