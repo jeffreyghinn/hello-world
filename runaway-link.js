@@ -46,6 +46,21 @@ document.addEventListener(
       */
       let newX = linkRect.left + Math.cos(angle) * moveDistance;
       let newY - linkRect.right + Math.sin(angle) * moveDistance;
+
+      /* The following lines prevent the link from leaving the screen */
+      /* Math.max stops it from going below 0 */
+      /* Math.min stops it from exceeding the viewport */
+      newX = Math.max(
+        0,
+        Math.min(window.innerWidth - linkRect.width, newX)
+      );
+      newY = Math.max(
+        0,
+        Math.min(window.innerHeight - linkRect.height, newY)
+      );
+
+      /* Apply the new location to the link */
+      
     }
   }
 );
@@ -56,24 +71,6 @@ document.addEventListener(
 ************ The below code is a reference from ChatGPT ***********
 
 /* below is all inside the if statement */
-
-        /*
-          Prevent the link from leaving the screen.
-
-          Math.max keeps it from going below 0.
-          Math.min keeps it from exceeding the viewport.
-        */
-        newX = Math.max(
-          0,
-          Math.min(window.innerWidth - rect.width, newX)
-        );
-
-        newY = Math.max(
-          0,
-          Math.min(window.innerHeight - rect.height, newY)
-        );
-
-
 
         /*
           Apply the new position to the link.
