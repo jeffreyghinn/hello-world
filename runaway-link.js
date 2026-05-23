@@ -59,6 +59,9 @@ document.addEventListener(
         Math.min(window.innerHeight - linkRect.height, newY)
       );
 
+      /* Allow the link to be positioned anywhere on the page */
+      link.style.position = "absolute";
+
       /* Apply the new location to the link */
       link.style.left = `${newX}px`;
       link.style.top = `${newY}px`;
