@@ -61,6 +61,7 @@ document.addEventListener(
 
       /* Allow the link to be positioned anywhere on the page */
       link.style.position = "absolute";
+      link.style.display = "inline-block";
 
       /* Apply the new location to the link */
       link.style.left = `${newX}px`;
