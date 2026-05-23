@@ -20,7 +20,7 @@ document.addEventListener(
     If deltaY is positive, the mouse is above the link.
     */
     const deltaX = linkCenterX - mouseMovement.clientX;
-    const deltaY - linkCenterY - mouseMovement.clientY;
+    const deltaY = linkCenterY - mouseMovement.clientY;
 
     /*
     Calculate the straight distance between the mouse and the link using Pythagorean theorem.
@@ -45,7 +45,7 @@ document.addEventListener(
       sin(angle) gives vertical movement.
       */
       let newX = linkRect.left + Math.cos(angle) * moveDistance;
-      let newY - linkRect.right + Math.sin(angle) * moveDistance;
+      let newY = linkRect.top + Math.sin(angle) * moveDistance;
 
       /* The following lines prevent the link from leaving the screen */
       /* Math.max stops it from going below 0 */
