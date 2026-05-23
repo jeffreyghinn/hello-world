@@ -4,13 +4,13 @@
         <title>Hello world!</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👋</text></svg>">
         
-        <!-- make sure the page scales correctly on mobile -->
+        <!-- Make sure the page scales correctly on mobile -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!-- link to stylesheet -->
+        <!-- Link to stylesheet -->
         <link rel="stylesheet" href="styles.css"/>
 
-        <!-- link to Google font Inter -->
+        <!-- Link to Google font Inter -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
@@ -28,8 +28,16 @@
         <h1>Hello world!</h1>
         <h3>Welcome to my personal site</h3>
         <p>This site is purely for the purpose of having some fun, and maybe sharing some side projects I will be working on over time.</p>
+        <p>To continue accessing this site you must review and agree to the terms linked below:</p>
+        <a id="runaway-terms-link" href="terms.html">Terms</a>
+        
+        <!--
         <footer>
             <a href="terms.html">Review terms</a>
         </footer>
+        -->
+
+        <!-- The script that makes the terms link run away from the mouse -->
+        <script src="runaway-link.js"></script>
     </body>
 </html>

@@ -1,7 +1,13 @@
-/* utlity class to add the Inter font to an element */
-.inter-font {
+body {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
-  font-weight: <weight>;
   font-style: normal;
+}
+
+#runaway-terms-link {
+  /*
+  Adds a tiny animation effect whenever left/top changes happen.
+  Without this, the movement would look more abrupt and robotic.
+  */
+  transition: left 0.08s linear, top 0.08s linear;
 }
