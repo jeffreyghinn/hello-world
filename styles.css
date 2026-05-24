@@ -4,6 +4,10 @@ body {
   font-style: normal;
 }
 
+footer {
+  background-color: lightGrey;
+}
+
 #runaway-terms-link {
   /*
   Adds a tiny animation effect whenever left/top changes happen.
