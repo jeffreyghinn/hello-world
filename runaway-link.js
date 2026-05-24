@@ -6,7 +6,7 @@ Listen for mouse movement anywhere on the page.
 Every time the mouse moves this function runs again.
 */
 document.addEventListener(
-  "mousemove", (mouseMovement) => {
+  "mousemove", (mousemove) => {
     /* Get the link's size and location */
     const linkRect = link.getBoundingClientRect();
 
@@ -19,8 +19,8 @@ document.addEventListener(
     If deltaX is positive, the mouse is to the left of the link.
     If deltaY is positive, the mouse is above the link.
     */
-    const deltaX = linkCenterX - mouseMovement.clientX;
-    const deltaY = linkCenterY - mouseMovement.clientY;
+    const deltaX = linkCenterX - mousemove.clientX;
+    const deltaY = linkCenterY - mousemove.clientY;
 
     /*
     Calculate the straight distance between the mouse and the link using Pythagorean theorem.
