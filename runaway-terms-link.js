@@ -1,33 +1,41 @@
 /* Grab the link element from the page and store it in a variable for easy access */
 const link = document.getElementById("runaway-terms-link");
 
-/* Add click handler to show "Got me" animation */
-link.addEventListener("click", (e) => {
-  /* Create the "Got me" text element */
-  const gotMeText = document.createElement("div");
-  gotMeText.textContent = "Got me!";
-  gotMeText.className = "got-me-animation";
-  
-  /* Position it at the link's current location */
-  const linkRect = link.getBoundingClientRect();
-  gotMeText.style.left = `${linkRect.left}px`;
-  gotMeText.style.top = `${linkRect.top}px`;
-  
-  /* Add it to the page */
-  document.body.appendChild(gotMeText);
-  
-  /* Remove the element after animation completes */
-  setTimeout(() => {
-    gotMeText.remove();
-  }, 600);
-});
+if (link) {
+  /* Add click handler to show "Got me" animation */
+  link.addEventListener("click", () => {
+    if (link.hidden) {
+      return;
+    }
 
-/*
-Listen for mouse movement anywhere on the page.
-Every time the mouse moves this function runs again.
-*/
-document.addEventListener(
-  "mousemove", (mousemove) => {
+    /* Create the "Got me" text element */
+    const gotMeText = document.createElement("div");
+    gotMeText.textContent = "Got me!";
+    gotMeText.className = "got-me-animation";
+
+    /* Position it at the link's current location */
+    const linkRect = link.getBoundingClientRect();
+    gotMeText.style.left = `${linkRect.left}px`;
+    gotMeText.style.top = `${linkRect.top}px`;
+
+    /* Add it to the page */
+    document.body.appendChild(gotMeText);
+
+    /* Remove the element after animation completes */
+    setTimeout(() => {
+      gotMeText.remove();
+    }, 600);
+  });
+
+  /*
+  Listen for mouse movement anywhere on the page.
+  Every time the mouse moves this function runs again.
+  */
+  document.addEventListener("mousemove", (mousemove) => {
+    if (link.hidden) {
+      return;
+    }
+
     /* Get the link's size and location */
     const linkRect = link.getBoundingClientRect();
 
@@ -71,22 +79,15 @@ document.addEventListener(
       /* The following lines prevent the link from leaving the screen */
       /* Math.max stops it from going below 0 */
       /* Math.min stops it from exceeding the viewport */
-      newX = Math.max(
-        0,
-        Math.min(window.innerWidth - linkRect.width, newX)
-      );
-      newY = Math.max(
-        0,
-        Math.min(window.innerHeight - linkRect.height, newY)
-      );
+      newX = Math.max(0, Math.min(window.innerWidth - linkRect.width, newX));
+      newY = Math.max(0, Math.min(window.innerHeight - linkRect.height, newY));
 
       /* Allow the link to be positioned anywhere on the page */
       link.style.position = "absolute";
-      link.style.display = "inline-block";
 
       /* Apply the new location to the link */
       link.style.left = `${newX}px`;
       link.style.top = `${newY}px`;
     }
-  }
-);
+  });
+}
