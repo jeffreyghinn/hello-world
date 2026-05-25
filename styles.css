@@ -19,6 +19,28 @@ header, main, footer {
   Without this, the movement would look more abrupt and robotic.
   */
   transition: left 0.08s linear, top 0.08s linear;
+  cursor: pointer;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+}
+
+.got-me-animation {
+  position: fixed;
+  pointer-events: none;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #4CAF50;
+  animation: slideUp 0.6s ease-out forwards;
+  white-space: nowrap;
 }
 
 

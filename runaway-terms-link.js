@@ -1,6 +1,29 @@
 /* Grab the link element from the page and store it in a variable for easy access */
 const link = document.getElementById("runaway-terms-link");
 
+/* Add click handler to show "Got me" animation */
+link.addEventListener("click", (e) => {
+  e.preventDefault();
+  
+  /* Create the "Got me" text element */
+  const gotMeText = document.createElement("div");
+  gotMeText.textContent = "Got me!";
+  gotMeText.className = "got-me-animation";
+  
+  /* Position it at the link's current location */
+  const linkRect = link.getBoundingClientRect();
+  gotMeText.style.left = `${linkRect.left}px`;
+  gotMeText.style.top = `${linkRect.top}px`;
+  
+  /* Add it to the page */
+  document.body.appendChild(gotMeText);
+  
+  /* Remove the element after animation completes */
+  setTimeout(() => {
+    gotMeText.remove();
+  }, 600);
+});
+
 /*
 Listen for mouse movement anywhere on the page.
 Every time the mouse moves this function runs again.
