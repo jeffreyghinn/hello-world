@@ -20,3 +20,8 @@ header, main, footer {
   */
   transition: left 0.08s linear, top 0.08s linear;
 }
+
+
+.terms-scroll-spacer {
+  height: 70vh;
+}

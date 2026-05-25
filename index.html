@@ -28,16 +28,18 @@
         <header>
             <h1>Hello world!</h1>
         </header>
-        <main>
+        <main data-requires-terms>
             <h3>Welcome to my personal site</h3>
             <p>This site is purely for the purpose of having some fun, and maybe sharing some side projects I will be working on over time.</p>
             <p>To continue accessing this site you must review and agree to the terms linked below:</p>
             <a id="runaway-terms-link" href="terms.html">Terms</a>
         </main>
-        <footer>
+        <footer data-requires-terms>
             <a href="terms.html">Review terms</a>
             <p>© 2026 Jeffrey Ghinn</p>
         </footer>
+
+        <script src="terms-gate.js"></script>
 
         <!-- The script that makes the terms link run away from the mouse -->
         <script src="runaway-terms-link.js"></script>
