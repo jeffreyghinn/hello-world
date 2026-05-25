@@ -1,14 +1,22 @@
 (function () {
   const AGREEMENT_KEY = "termsAgreed";
-
   const path = window.location.pathname;
   const onIndexPage = path.endsWith("index.html") || path === "/";
   const onTermsPage = path.endsWith("terms.html");
 
   const hasAgreedToTerms = () => localStorage.getItem(AGREEMENT_KEY) === "true";
 
-  if (onIndexPage && !hasAgreedToTerms()) {
-    window.location.replace("terms.html");
+  if (onIndexPage) {
+    const postTermsContent = document.getElementById("post-terms-content");
+    const homeFooter = document.getElementById("home-footer");
+
+    if (!postTermsContent || !homeFooter) {
+      return;
+    }
+
+    const showAllHomeContent = hasAgreedToTerms();
+    postTermsContent.hidden = !showAllHomeContent;
+    homeFooter.hidden = !showAllHomeContent;
     return;
   }
 
@@ -30,6 +38,20 @@
     const viewportBottom = window.scrollY + window.innerHeight;
     return viewportBottom >= document.documentElement.scrollHeight - 4;
   };
+
+  const revealBackLinks = () => {
+    backLinks.forEach((link) => {
+      link.hidden = false;
+    });
+  };
+
+  const keepBackLinksHidden = () => {
+    backLinks.forEach((link) => {
+      link.hidden = true;
+    });
+  };
+
+  keepBackLinksHidden();
 
   const blockBackNavigation = (event) => {
     if (hasAgreedToTerms()) {
@@ -55,6 +77,13 @@
   window.addEventListener("scroll", updateScrollState);
   updateScrollState();
 
+  if (hasAgreedToTerms()) {
+    agreeButton.disabled = false;
+    revealBackLinks();
+    statusText.textContent = "Terms already agreed. You can return to the homepage.";
+    return;
+  }
+
   agreeButton.addEventListener("click", () => {
     if (!reachedBottom) {
       statusText.textContent = "Scroll to the bottom before agreeing.";
@@ -62,6 +91,7 @@
     }
 
     localStorage.setItem(AGREEMENT_KEY, "true");
-    window.location.replace("index.html");
+    revealBackLinks();
+    statusText.textContent = "Thanks for agreeing. You can now go back to the homepage.";
   });
 })();
