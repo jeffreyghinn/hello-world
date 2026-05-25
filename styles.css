@@ -5,7 +5,7 @@ body {
   margin: 0;
 }
 
-footer {
+header, main, footer {
   background-color: whitesmoke;
   margin: 0;
   padding: 1rem;
