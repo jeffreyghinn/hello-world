@@ -80,7 +80,7 @@
   updateScrollState();
 
   if (hasAgreedToTerms()) {
-    agreeButton.disabled = false;
+    agreeButton.hidden = true;
     revealBackLinks();
     statusText.textContent = "Terms already agreed. You can return to the homepage.";
     return;
@@ -93,6 +93,7 @@
     }
 
     localStorage.setItem(AGREEMENT_KEY, "true");
+    agreeButton.hidden = true;
     revealBackLinks();
     statusText.textContent = "Thanks for agreeing. You can now go back to the homepage.";
   });
