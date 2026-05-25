@@ -3,8 +3,6 @@ const link = document.getElementById("runaway-terms-link");
 
 /* Add click handler to show "Got me" animation */
 link.addEventListener("click", (e) => {
-  e.preventDefault();
-  
   /* Create the "Got me" text element */
   const gotMeText = document.createElement("div");
   gotMeText.textContent = "Got me!";
