@@ -2,10 +2,16 @@ body {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  margin: 0;
+  padding: 1rem;
 }
 
 footer {
   background-color: whitesmoke;
+  margin: 0;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 #runaway-terms-link {
