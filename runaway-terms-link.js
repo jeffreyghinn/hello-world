@@ -76,11 +76,15 @@ if (link) {
       let newX = linkRect.left + Math.cos(angle) * moveDistance;
       let newY = linkRect.top + Math.sin(angle) * moveDistance;
 
-      /* The following lines prevent the link from leaving the screen */
-      /* Math.max stops it from going below 0 */
-      /* Math.min stops it from exceeding the viewport */
-      newX = Math.max(0, Math.min(window.innerWidth - linkRect.width, newX));
-      newY = Math.max(0, Math.min(window.innerHeight - linkRect.height, newY));
+      /* Keep the link at least 100px away from each screen edge */
+      const edgePadding = 100;
+      const minX = edgePadding;
+      const maxX = Math.max(minX, window.innerWidth - edgePadding - linkRect.width);
+      const minY = edgePadding;
+      const maxY = Math.max(minY, window.innerHeight - edgePadding - linkRect.height);
+
+      newX = Math.max(minX, Math.min(maxX, newX));
+      newY = Math.max(minY, Math.min(maxY, newY));
 
       /* Allow the link to be positioned anywhere on the page */
       link.style.position = "absolute";
