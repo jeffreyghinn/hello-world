@@ -9,14 +9,16 @@
   if (onIndexPage) {
     const postTermsContent = document.getElementById("post-terms-content");
     const homeFooter = document.getElementById("home-footer");
+    const runawayTermsLink = document.getElementById("runaway-terms-link");
 
-    if (!postTermsContent || !homeFooter) {
+    if (!postTermsContent || !homeFooter || !runawayTermsLink) {
       return;
     }
 
     const showAllHomeContent = hasAgreedToTerms();
     postTermsContent.hidden = !showAllHomeContent;
     homeFooter.hidden = !showAllHomeContent;
+    runawayTermsLink.hidden = showAllHomeContent;
     return;
   }
 
