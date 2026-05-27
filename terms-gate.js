@@ -16,7 +16,7 @@
     }
 
     const showAllHomeContent = hasAgreedToTerms();
-    postTermsContent.hidden = !showAllHomeContent;
+    postTermsContent.hidden = showAllHomeContent;
     homeFooter.hidden = !showAllHomeContent;
     runawayTermsLink.hidden = showAllHomeContent;
     return;
