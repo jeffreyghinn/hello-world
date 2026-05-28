@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time Tracker</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%231a1916' /%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%23f0ede8' stroke-width='1.5'/%3E%3Cline x1='16' y1='16' x2='16' y2='8' stroke='%23f0ede8' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='16' y1='16' x2='21' y2='19' stroke='%237F77DD' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%23f0ede8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f6f3;
+    --surface: #ffffff;
+    --surface2: #f0efe9;
+    --border: rgba(0,0,0,0.1);
+    --border2: rgba(0,0,0,0.18);
+    --text: #1a1916;
+    --text2: #6b6963;
+    --text3: #a8a49e;
+    --radius: 10px;
+    --radius-lg: 14px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141412;
+      --surface: #1e1d1b;
+      --surface2: #252420;
+      --border: rgba(255,255,255,0.09);
+      --border2: rgba(255,255,255,0.15);
+      --text: #f0ede8;
+      --text2: #8a8680;
+      --text3: #5a5752;
+    }
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .app {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .app-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .app-title i { font-size: 18px; color: var(--text2); }
+
+  .day-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .day-label-wrap {
+    position: relative;
+    min-width: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .day-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--text2);
+    text-align: center;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+
+  .day-label:hover { background: var(--surface2); }
+
+  #datePicker {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: none;
+  }
+
+  .today-btn {
+    background: var(--surface);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 0 12px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text2);
+    font-weight: 500;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+
+  .today-btn:hover { background: var(--surface2); }
+  .today-btn.at-today { color: var(--text3); border-color: var(--border); cursor: default; }
+
+  .nav-btn {
+    background: var(--surface);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius);
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+
+  .nav-btn:hover { background: var(--surface2); }
+
+  .tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 1.25rem;
+    background: var(--surface2);
+    padding: 4px;
+    border-radius: var(--radius);
+    width: fit-content;
+  }
+
+  .tab {
+    background: none;
+    border: none;
+    border-radius: 7px;
+    padding: 5px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text2);
+    transition: all 0.15s;
+    font-weight: 500;
+  }
+
+  .tab.active {
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  .time-grid {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 0;
+  }
+
+  .time-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text3);
+    text-align: right;
+    padding-right: 10px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    overflow: visible;
+  }
+
+  .time-label.hour { color: var(--text2); font-size: 11px; }
+
+  .slot {
+    height: 30px;
+    border: 0.5px solid var(--border);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    transition: opacity 0.1s, background 0.1s;
+    border-radius: 3px;
+    margin-bottom: 1.5px;
+  }
+
+  .slot.hour-divider { border-top-color: var(--border2); }
+  .slot:hover { opacity: 0.82; }
+
+  .slot.empty {
+    background: var(--surface);
+    color: var(--text3);
+  }
+
+  .slot.empty:hover { background: var(--surface2); }
+
+  .slot.current-time-slot {
+    position: relative;
+    border-color: rgba(255, 99, 71, 0.45);
+    box-shadow: inset 0 0 0 1px rgba(255, 99, 71, 0.35);
+  }
+
+  .slot.current-time-slot::after {
+    content: '';
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    top: var(--time-line-pos, 50%);
+    height: 2px;
+    background: #ff6347;
+    border-radius: 999px;
+    pointer-events: none;
+    opacity: 0.95;
+  }
+
+  .current-time-label {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    color: #ff6347;
+    pointer-events: none;
+    line-height: 1;
+    opacity: 1;
+    transition: opacity 0.15s;
+    z-index: 2;
+    white-space: nowrap;
+  }
+
+  .current-time-label.hidden { opacity: 0; }
+
+  .slot-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .summary-bar {
+    margin-top: 1.25rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    border: 0.5px solid var(--border);
+  }
+
+  .summary-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text3);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .summary-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .summary-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  .chip-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .cat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .cat-title { font-size: 15px; font-weight: 500; }
+
+  .add-btn {
+    background: var(--surface);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 6px 13px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.15s;
+  }
+
+  .add-btn:hover { background: var(--surface2); }
+
+  .cat-list { display: flex; flex-direction: column; gap: 6px; }
+
+  .cat-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .cat-swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: transform 0.1s;
+  }
+
+  .cat-swatch:hover { transform: scale(1.15); }
+
+  .cat-name {
+    flex: 1;
+    font-size: 14px;
+    color: var(--text);
+    cursor: text;
+  }
+
+  .cat-name-input {
+    flex: 1;
+    border: none;
+    background: none;
+    font-size: 14px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    border-bottom: 1px solid var(--border2);
+  }
+
+  .icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text3);
+    padding: 4px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    transition: color 0.1s, background 0.1s;
+  }
+
+  .icon-btn:hover { color: var(--text2); background: var(--surface2); }
+
+  .color-picker-wrap { position: relative; }
+
+  .color-popover {
+    position: absolute;
+    top: 28px;
+    left: 0;
+    background: var(--surface);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 9px;
+    z-index: 100;
+    display: grid;
+    grid-template-columns: repeat(5, 24px);
+    gap: 6px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+
+  .color-opt {
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.1s;
+  }
+
+  .color-opt:hover { transform: scale(1.15); }
+  .color-opt.selected { border-color: var(--text2); }
+
+  .slot-popover {
+    position: fixed;
+    background: var(--surface);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius-lg);
+    padding: 10px;
+    z-index: 300;
+    width: 220px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.14);
+  }
+
+  .slot-pop-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text3);
+    margin-bottom: 8px;
+    padding: 0 2px;
+  }
+
+  .slot-pop-cats {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    max-height: 260px;
+    overflow-y: auto;
+  }
+
+  .slot-pop-cat {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 10px;
+    border-radius: 7px;
+    cursor: pointer;
+    border: 0.5px solid transparent;
+    transition: background 0.1s;
+  }
+
+  .slot-pop-cat:hover { background: var(--surface2); }
+  .slot-pop-cat.selected { background: var(--surface2); border-color: var(--border); }
+
+  .slot-pop-swatch { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+  .slot-pop-name { font-size: 13px; color: var(--text); }
+
+  .slot-pop-clear {
+    margin-top: 6px;
+    width: 100%;
+    padding: 7px;
+    border: 0.5px solid var(--border);
+    border-radius: 7px;
+    background: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text3);
+    transition: background 0.1s;
+  }
+
+  .slot-pop-clear:hover { background: var(--surface2); color: var(--text2); }
+
+  .week-grid {
+    display: grid;
+    grid-template-columns: 50px repeat(7, 1fr);
+    gap: 0;
+  }
+
+  .week-day-header {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text2);
+    text-align: center;
+    padding: 4px 2px 8px;
+    border-bottom: 0.5px solid var(--border2);
+  }
+
+  .week-day-header.today { color: var(--text); }
+
+  .week-slot {
+    height: 15px;
+    border: 0.5px solid var(--border);
+    cursor: pointer;
+    display: block;
+    transition: opacity 0.1s;
+    border-radius: 1px;
+    margin: 0.5px;
+  }
+
+  .week-slot.empty { background: var(--surface); }
+  .week-slot:hover { opacity: 0.7; }
+
+  .week-time-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--text3);
+    text-align: right;
+    padding-right: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top-bar">
+    <span class="app-title">
+      <i class="ti ti-clock"></i>
+      Time tracker
+    </span>
+    <div class="day-nav">
+      <button class="nav-btn" id="prevDay" aria-label="Previous day"><i class="ti ti-chevron-left"></i></button>
+      <div class="day-label-wrap">
+        <span class="day-label" id="dayLabel">Today</span>
+        <input type="date" id="datePicker" aria-label="Pick a date">
+      </div>
+      <button class="nav-btn" id="nextDay" aria-label="Next day"><i class="ti ti-chevron-right"></i></button>
+      <button class="today-btn" id="todayBtn" aria-label="Go to today">Today</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" id="tabDay">Day</button>
+    <button class="tab" id="tabWeek">Week</button>
+    <button class="tab" id="tabCats">Categories</button>
+  </div>
+
+  <div id="dayView"></div>
+  <div id="weekView" style="display:none;"></div>
+  <div id="catsView" style="display:none;"></div>
+  <div id="summaryBar" class="summary-bar" style="margin-top:1.25rem; display:none;"></div>
+  <div id="modalContainer"></div>
+</div>
+
+<script>
+const COLORS = [
+  '#7F77DD','#1D9E75','#D85A30','#D4537E','#378ADD',
+  '#639922','#BA7517','#E24B4A','#888780','#5DCAA5',
+  '#AFA9EC','#F0997B','#ED93B1','#85B7EB','#97C459',
+  '#EF9F27','#F09595','#B4B2A9','#3C3489','#0F6E56'
+];
+
+const STORAGE_CATS = 'timetrkr_cats';
+const STORAGE_DATA = 'timetrkr_data';
+const START_HOUR = 6;
+const END_HOUR = 17;
+const SLOTS = (END_HOUR - START_HOUR) * 4;
+
+function todayKey() { return new Date().toISOString().slice(0,10); }
+function dateKey(offset) {
+  const d = new Date(); d.setDate(d.getDate() + offset);
+  return d.toISOString().slice(0,10);
+}
+function formatDateLabel(key) {
+  const today = todayKey();
+  const yesterday = dateKey(-1);
+  const tomorrow = dateKey(1);
+  if (key === today) return 'Today';
+  if (key === yesterday) return 'Yesterday';
+  if (key === tomorrow) return 'Tomorrow';
+  const d = new Date(key + 'T12:00:00');
+  return d.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric'});
+}
+function slotTime(i) {
+  const totalMins = START_HOUR * 60 + i * 15;
+  const h = Math.floor(totalMins / 60);
+  const m = totalMins % 60;
+  const ampm = h >= 12 ? 'pm' : 'am';
+  const h12 = h > 12 ? h - 12 : h === 0 ? 12 : h;
+  return m === 0 ? `${h12}${ampm}` : `${h12}:${m.toString().padStart(2,'0')}${ampm}`;
+}
+
+
+function getCurrentSlotInfo() {
+  const now = new Date();
+  const mins = now.getHours() * 60 + now.getMinutes();
+  const startMins = START_HOUR * 60;
+  const endMins = END_HOUR * 60;
+  if (mins < startMins || mins >= endMins) return null;
+  const relative = mins - startMins;
+  const slotIndex = Math.floor(relative / 15);
+  const minsIntoSlot = relative % 15;
+  const h = now.getHours();
+  const m = now.getMinutes();
+  const ampm = h >= 12 ? 'pm' : 'am';
+  const h12 = h > 12 ? h - 12 : h === 0 ? 12 : h;
+  const timeStr = `${h12}:${m.toString().padStart(2,'0')}${ampm}`;
+  return {
+    slotIndex,
+    percent: (minsIntoSlot / 15) * 100,
+    timeStr
+  };
+}
+
+function defaultCats() {
+  return [
+    { id:'c1', name:'Deep work', color:'#7F77DD' },
+    { id:'c2', name:'Meetings', color:'#378ADD' },
+    { id:'c3', name:'Admin', color:'#BA7517' },
+    { id:'c4', name:'Break', color:'#1D9E75' },
+    { id:'c5', name:'Learning', color:'#D4537E' },
+  ];
+}
+
+let categories = [];
+let timeData = {};
+let currentOffset = 0;
+let activeView = 'day';
+
+function loadData() {
+  try {
+    const cats = localStorage.getItem(STORAGE_CATS);
+    categories = cats ? JSON.parse(cats) : defaultCats();
+    const data = localStorage.getItem(STORAGE_DATA);
+    timeData = data ? JSON.parse(data) : {};
+  } catch(e) { categories = defaultCats(); timeData = {}; }
+}
+
+function saveCats() { localStorage.setItem(STORAGE_CATS, JSON.stringify(categories)); }
+function saveData() { localStorage.setItem(STORAGE_DATA, JSON.stringify(timeData)); }
+
+function getCat(id) { return categories.find(c => c.id === id); }
+
+function getDaySlots(key) {
+  if (!timeData[key]) timeData[key] = Array(SLOTS).fill(null);
+  while (timeData[key].length < SLOTS) timeData[key].push(null);
+  return timeData[key];
+}
+
+function renderAll() {
+  const key = dateKey(currentOffset);
+  document.getElementById('dayLabel').textContent = formatDateLabel(key);
+  const todayBtn = document.getElementById('todayBtn');
+  if (currentOffset === 0) {
+    todayBtn.classList.add('at-today');
+    todayBtn.disabled = true;
+  } else {
+    todayBtn.classList.remove('at-today');
+    todayBtn.disabled = false;
+  }
+  const picker = document.getElementById('datePicker');
+  picker.value = key;
+  if (activeView === 'day') {
+    renderDay(key);
+    renderSummary(key);
+
+    if (key === todayKey()) {
+      setTimeout(scrollCurrentTimeIntoView, 50);
+    }
+  }
+  else if (activeView === 'week') {
+    renderWeek();
+    renderWeekSummary();
+  }
+  else {
+    renderCats();
+  }
+}
+
+function renderDay(key) {
+  const slots = getDaySlots(key);
+  const container = document.getElementById('dayView');
+  container.innerHTML = '';
+  const grid = document.createElement('div');
+  grid.className = 'time-grid';
+  for (let i = 0; i < SLOTS; i++) {
+    const isHour = i % 4 === 0;
+    const label = document.createElement('div');
+    label.className = 'time-label' + (isHour ? ' hour' : '');
+    label.textContent = isHour ? slotTime(i) : '';
+    grid.appendChild(label);
+    const slot = document.createElement('div');
+    slot.className = 'slot' + (isHour ? ' hour-divider' : '');
+
+    const isToday = key === todayKey();
+    const currentInfo = getCurrentSlotInfo();
+
+    if (isToday && currentInfo && currentInfo.slotIndex === i) {
+      slot.classList.add('current-time-slot');
+      slot.style.setProperty('--time-line-pos', `${currentInfo.percent}%`);
+
+      const slotH = 30;
+      const offsetPx = ((currentInfo.percent / 100) - 0.5) * slotH;
+
+      const timeLabel = document.createElement('span');
+      timeLabel.className = 'current-time-label';
+      timeLabel.style.top = `calc(50% + ${offsetPx}px)`;
+      timeLabel.textContent = currentInfo.timeStr;
+
+      // If the line is near the top of this slot it overlaps the hour label — clear it
+      if (currentInfo.percent < 25) label.textContent = '';
+
+      label.appendChild(timeLabel);
+    }
+    const cat = slots[i] ? getCat(slots[i]) : null;
+    if (cat) {
+      slot.style.background = cat.color + '28';
+      slot.style.borderLeft = `3px solid ${cat.color}`;
+      const txt = document.createElement('span');
+      txt.className = 'slot-text';
+      txt.style.color = cat.color;
+      txt.textContent = cat.name;
+      slot.appendChild(txt);
+    } else {
+      slot.classList.add('empty');
+      const txt = document.createElement('span');
+      txt.className = 'slot-text';
+      txt.textContent = '+ assign';
+      txt.style.opacity = '0';
+      slot.appendChild(txt);
+      slot.addEventListener('mouseenter', () => txt.style.opacity = '0.4');
+      slot.addEventListener('mouseleave', () => txt.style.opacity = '0');
+    }
+    slot.addEventListener('click', (e) => openModal(key, i, slot, e));
+    grid.appendChild(slot);
+  }
+  container.appendChild(grid);
+}
+
+function renderSummary(key) {
+  const slots = getDaySlots(key);
+  const counts = {};
+  slots.forEach(cid => { if(cid) counts[cid] = (counts[cid]||0)+1; });
+  const bar = document.getElementById('summaryBar');
+  if (!Object.keys(counts).length) { bar.style.display = 'none'; return; }
+  bar.style.display = 'block';
+  bar.innerHTML = `<div class="summary-title">Today's breakdown</div><div class="summary-items" id="sumItems"></div>`;
+  const items = document.getElementById('sumItems');
+  Object.entries(counts).sort((a,b)=>b[1]-a[1]).forEach(([cid,cnt]) => {
+    const cat = getCat(cid); if (!cat) return;
+    const mins = cnt*15, hrs = Math.floor(mins/60), rem = mins%60;
+    const label = hrs > 0 ? (rem > 0 ? `${hrs}h ${rem}m` : `${hrs}h`) : `${rem}m`;
+    const chip = document.createElement('div');
+    chip.className = 'summary-chip';
+    chip.style.background = cat.color + '20';
+    chip.innerHTML = `<span class="chip-dot" style="background:${cat.color}"></span><span style="color:${cat.color};font-weight:500">${cat.name}</span><span style="color:var(--text2)">${label}</span>`;
+    items.appendChild(chip);
+  });
+}
+
+function renderWeek() {
+  const container = document.getElementById('weekView');
+  container.innerHTML = '';
+  const dow = new Date().getDay();
+  const mondayOffset = -(dow === 0 ? 6 : dow - 1);
+  const days = Array.from({length:7}, (_,d) => dateKey(currentOffset + mondayOffset + d));
+  const dayNames = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const grid = document.createElement('div');
+  grid.className = 'week-grid';
+  const corner = document.createElement('div');
+  grid.appendChild(corner);
+  days.forEach((key, di) => {
+    const h = document.createElement('div');
+    h.className = 'week-day-header' + (key === todayKey() ? ' today' : '');
+    const d = new Date(key+'T12:00:00');
+    h.textContent = dayNames[di] + ' ' + d.getDate();
+    grid.appendChild(h);
+  });
+  for (let i = 0; i < SLOTS; i++) {
+    const isHour = i % 4 === 0;
+    const label = document.createElement('div');
+    label.className = 'week-time-label';
+    label.textContent = isHour ? slotTime(i) : '';
+    grid.appendChild(label);
+    days.forEach(key => {
+      const slots = getDaySlots(key);
+      const cat = slots[i] ? getCat(slots[i]) : null;
+      const ws = document.createElement('div');
+      ws.className = 'week-slot' + (cat ? '' : ' empty');
+      if (cat) ws.style.background = cat.color;
+      ws.title = (cat ? cat.name + ' · ' : '') + slotTime(i);
+      ws.addEventListener('click', () => {
+        currentOffset = Math.round((new Date(key+'T12:00:00') - new Date(todayKey()+'T12:00:00'))/(86400000));
+        switchView('day');
+      });
+      grid.appendChild(ws);
+    });
+  }
+  container.appendChild(grid);
+}
+
+function renderWeekSummary() {
+  const dow = new Date().getDay();
+  const mondayOffset = -(dow === 0 ? 6 : dow - 1);
+  const days = Array.from({length:7}, (_,d) => dateKey(currentOffset + mondayOffset + d));
+  const counts = {};
+  days.forEach(key => getDaySlots(key).forEach(cid => { if(cid) counts[cid]=(counts[cid]||0)+1; }));
+  const bar = document.getElementById('summaryBar');
+  if (!Object.keys(counts).length) { bar.style.display = 'none'; return; }
+  bar.style.display = 'block';
+  bar.innerHTML = `<div class="summary-title">Week breakdown</div><div class="summary-items" id="sumItems"></div>`;
+  const items = document.getElementById('sumItems');
+  Object.entries(counts).sort((a,b)=>b[1]-a[1]).forEach(([cid,cnt]) => {
+    const cat = getCat(cid); if (!cat) return;
+    const mins = cnt*15, hrs = Math.floor(mins/60), rem = mins%60;
+    const label = hrs > 0 ? (rem > 0 ? `${hrs}h ${rem}m` : `${hrs}h`) : `${rem}m`;
+    const chip = document.createElement('div');
+    chip.className = 'summary-chip';
+    chip.style.background = cat.color + '20';
+    chip.innerHTML = `<span class="chip-dot" style="background:${cat.color}"></span><span style="color:${cat.color};font-weight:500">${cat.name}</span><span style="color:var(--text2)">${label}</span>`;
+    items.appendChild(chip);
+  });
+}
+
+function renderCats() {
+  document.getElementById('summaryBar').style.display = 'none';
+  const container = document.getElementById('catsView');
+  container.innerHTML = '';
+  const header = document.createElement('div');
+  header.className = 'cat-header';
+  header.innerHTML = '<span class="cat-title">Categories</span>';
+  const addBtn = document.createElement('button');
+  addBtn.className = 'add-btn';
+  addBtn.innerHTML = '<i class="ti ti-plus"></i> Add category';
+  addBtn.addEventListener('click', addCat);
+  header.appendChild(addBtn);
+  container.appendChild(header);
+  const list = document.createElement('div');
+  list.className = 'cat-list';
+  list.id = 'catList';
+  categories.forEach(cat => list.appendChild(makeCatRow(cat)));
+  container.appendChild(list);
+}
+
+function makeCatRow(cat) {
+  const row = document.createElement('div');
+  row.className = 'cat-row';
+  const swWrap = document.createElement('div');
+  swWrap.className = 'color-picker-wrap';
+  const sw = document.createElement('div');
+  sw.className = 'cat-swatch';
+  sw.style.background = cat.color;
+  sw.title = 'Change color';
+  sw.addEventListener('click', e => { e.stopPropagation(); openColorPop(cat.id, swWrap, sw); });
+  swWrap.appendChild(sw);
+  row.appendChild(swWrap);
+  const nameEl = document.createElement('span');
+  nameEl.className = 'cat-name';
+  nameEl.textContent = cat.name;
+  nameEl.addEventListener('click', () => {
+    const inp = document.createElement('input');
+    inp.className = 'cat-name-input';
+    inp.value = cat.name;
+    row.replaceChild(inp, nameEl);
+    inp.focus(); inp.select();
+    const save = () => { cat.name = inp.value.trim() || cat.name; saveCats(); renderCats(); };
+    inp.addEventListener('blur', save);
+    inp.addEventListener('keydown', e => { if(e.key==='Enter') inp.blur(); });
+  });
+  row.appendChild(nameEl);
+  const actions = document.createElement('div');
+  actions.style.display = 'flex'; actions.style.gap = '4px';
+  const del = document.createElement('button');
+  del.className = 'icon-btn';
+  del.innerHTML = '<i class="ti ti-trash" style="font-size:15px"></i>';
+  del.title = 'Delete';
+  del.addEventListener('click', () => {
+    categories = categories.filter(c => c.id !== cat.id);
+    Object.keys(timeData).forEach(day => {
+      timeData[day] = timeData[day].map(cid => cid === cat.id ? null : cid);
+    });
+    saveCats(); saveData(); renderCats();
+  });
+  actions.appendChild(del);
+  row.appendChild(actions);
+  return row;
+}
+
+let openPopId = null;
+function openColorPop(catId, wrap, swatch) {
+  document.querySelectorAll('.color-popover').forEach(p => p.remove());
+  if (openPopId === catId) { openPopId = null; return; }
+  openPopId = catId;
+  const pop = document.createElement('div');
+  pop.className = 'color-popover';
+  const cat = getCat(catId);
+  COLORS.forEach(c => {
+    const opt = document.createElement('div');
+    opt.className = 'color-opt' + (c === cat.color ? ' selected' : '');
+    opt.style.background = c;
+    opt.addEventListener('click', e => {
+      e.stopPropagation();
+      cat.color = c; swatch.style.background = c;
+      pop.remove(); openPopId = null;
+      saveCats(); renderCats();
+    });
+    pop.appendChild(opt);
+  });
+  wrap.appendChild(pop);
+  setTimeout(() => document.addEventListener('click', () => { pop.remove(); openPopId = null; }, { once: true }), 0);
+}
+
+function addCat() {
+  const id = 'c' + Date.now();
+  const used = categories.map(c => c.color);
+  const color = COLORS.find(c => !used.includes(c)) || COLORS[categories.length % COLORS.length];
+  categories.push({ id, name: 'New category', color });
+  saveCats(); renderCats();
+  const list = document.getElementById('catList');
+  if (list && list.lastElementChild) {
+    list.lastElementChild.querySelector('.cat-name')?.click();
+  }
+}
+
+function openModal(key, slotIdx, anchorEl, mouseEvent) {
+  document.querySelectorAll('.slot-popover').forEach(p => p.remove());
+  const mc = document.getElementById('modalContainer');
+  mc.innerHTML = '';
+
+  const pop = document.createElement('div');
+  pop.className = 'slot-popover';
+
+  const title = document.createElement('div');
+  title.className = 'slot-pop-title';
+  title.textContent = slotTime(slotIdx) + ' – ' + slotTime(slotIdx + 1);
+  pop.appendChild(title);
+
+  const catList = document.createElement('div');
+  catList.className = 'slot-pop-cats';
+  const slots = getDaySlots(key);
+  categories.forEach(cat => {
+    const row = document.createElement('div');
+    row.className = 'slot-pop-cat' + (slots[slotIdx] === cat.id ? ' selected' : '');
+    row.innerHTML = `<span class="slot-pop-swatch" style="background:${cat.color}"></span><span class="slot-pop-name">${cat.name}</span>`;
+    row.addEventListener('click', () => {
+      timeData[key][slotIdx] = cat.id;
+      saveData(); pop.remove(); mc.innerHTML = ''; renderAll();
+    });
+    catList.appendChild(row);
+  });
+  pop.appendChild(catList);
+
+  const clearBtn = document.createElement('button');
+  clearBtn.className = 'slot-pop-clear';
+  clearBtn.textContent = 'Clear this slot';
+  clearBtn.addEventListener('click', () => {
+    timeData[key][slotIdx] = null;
+    saveData(); pop.remove(); mc.innerHTML = ''; renderAll();
+  });
+  pop.appendChild(clearBtn);
+
+  // Render off-screen first so we can measure height
+  pop.style.visibility = 'hidden';
+  document.body.appendChild(pop);
+
+  const popW = 220;
+  const popH = pop.offsetHeight || 280;
+  const margin = 10;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+
+  // Position near cursor with a small offset so it doesn't sit under the pointer
+  const cx = mouseEvent ? mouseEvent.clientX : window.innerWidth / 2;
+  const cy = mouseEvent ? mouseEvent.clientY : window.innerHeight / 2;
+  const offset = 12;
+
+  let left = cx + offset;
+  if (left + popW > vw - margin) left = cx - popW - offset;
+  if (left < margin) left = margin;
+
+  let top = cy + offset;
+  if (top + popH > vh - margin) top = cy - popH - offset;
+  if (top < margin) top = margin;
+
+  pop.style.left = left + 'px';
+  pop.style.top = top + 'px';
+  pop.style.visibility = 'visible';
+
+  setTimeout(() => {
+    document.addEventListener('click', function handler(e) {
+      if (!pop.contains(e.target)) {
+        pop.remove(); mc.innerHTML = '';
+        document.removeEventListener('click', handler);
+      }
+    });
+  }, 0);
+}
+
+
+function scrollCurrentTimeIntoView() {
+  const currentSlot = document.querySelector('.current-time-slot');
+
+  if (!currentSlot) return;
+
+  requestAnimationFrame(() => {
+    const rect = currentSlot.getBoundingClientRect();
+    const absoluteTop = window.scrollY + rect.top;
+    const targetY = absoluteTop - (window.innerHeight / 2) + (rect.height / 2);
+
+    window.scrollTo({
+      top: Math.max(0, targetY),
+      behavior: 'smooth'
+    });
+  });
+}
+
+function switchView(v) {
+  activeView = v;
+  document.getElementById('tabDay').classList.toggle('active', v==='day');
+  document.getElementById('tabWeek').classList.toggle('active', v==='week');
+  document.getElementById('tabCats').classList.toggle('active', v==='cats');
+  document.getElementById('dayView').style.display = v==='day' ? 'block' : 'none';
+  document.getElementById('weekView').style.display = v==='week' ? 'block' : 'none';
+  document.getElementById('catsView').style.display = v==='cats' ? 'block' : 'none';
+  renderAll();
+}
+
+
+document.getElementById('dayLabel').addEventListener('click', () => {
+  const picker = document.getElementById('datePicker');
+
+  if (picker.showPicker) {
+    picker.showPicker();
+  } else {
+    picker.focus();
+    picker.click();
+  }
+});
+
+document.getElementById('tabDay').addEventListener('click', () => switchView('day'));
+document.getElementById('tabWeek').addEventListener('click', () => switchView('week'));
+document.getElementById('tabCats').addEventListener('click', () => switchView('cats'));
+document.getElementById('prevDay').addEventListener('click', () => { currentOffset--; renderAll(); });
+document.getElementById('nextDay').addEventListener('click', () => { currentOffset++; renderAll(); });
+document.getElementById('todayBtn').addEventListener('click', () => { currentOffset = 0; renderAll(); });
+document.getElementById('datePicker').addEventListener('change', e => {
+  const val = e.target.value;
+  if (!val) return;
+  const picked = new Date(val + 'T12:00:00');
+  const today = new Date(todayKey() + 'T12:00:00');
+  currentOffset = Math.round((picked - today) / 86400000);
+  renderAll();
+});
+
+loadData();
+renderAll();
+
+setInterval(() => {
+  if (activeView === 'day') {
+    renderAll();
+  }
+}, 60000);
+</script>
+</body>
+</html>
