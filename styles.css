@@ -97,7 +97,7 @@ main p {
   z-index: 1000;
   user-select: none;
   pointer-events: all;
-  top: 55%;
+  top: calc(50vh + 200px);
   left: 50%;
   transform: translateX(-50%);
 }
