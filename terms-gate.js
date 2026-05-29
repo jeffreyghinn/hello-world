@@ -10,15 +10,39 @@
     const postTermsContent = document.getElementById("post-terms-content");
     const homeFooter = document.getElementById("home-footer");
     const runawayTermsLink = document.getElementById("runaway-terms-link");
+    const levelIndicator = document.getElementById("level-indicator");
 
-    if (!postTermsContent || !homeFooter || !runawayTermsLink) {
+    if (!postTermsContent || !homeFooter || !runawayTermsLink || !levelIndicator) {
       return;
     }
 
-    const showAllHomeContent = hasAgreedToTerms();
-    postTermsContent.hidden = showAllHomeContent;
-    homeFooter.hidden = !showAllHomeContent;
-    runawayTermsLink.hidden = showAllHomeContent;
+    const playLevelUp = () => {
+      levelIndicator.classList.remove("level-indicator--level-up");
+      void levelIndicator.offsetWidth;
+
+      window.requestAnimationFrame(() => {
+        levelIndicator.classList.add("level-indicator--level-up");
+      });
+    };
+
+    const updateHomeContent = () => {
+      const showAllHomeContent = hasAgreedToTerms();
+      postTermsContent.hidden = showAllHomeContent;
+      homeFooter.hidden = !showAllHomeContent;
+      runawayTermsLink.hidden = showAllHomeContent;
+      levelIndicator.hidden = !showAllHomeContent;
+
+      if (showAllHomeContent) {
+        playLevelUp();
+      }
+    };
+
+    updateHomeContent();
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted) {
+        updateHomeContent();
+      }
+    });
     return;
   }
 
