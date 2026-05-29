@@ -97,6 +97,9 @@ main p {
   z-index: 1000;
   user-select: none;
   pointer-events: all;
+  top: 55%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 #runaway-terms-link:hover {
