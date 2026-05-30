@@ -191,6 +191,36 @@ main p {
   margin-bottom: 2rem;
 }
 
+/* Home project navigation */
+.home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.home-projects-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.2rem;
+  color: #101827;
+  background: linear-gradient(135deg, #00ff88 0%, #8dffcf 100%);
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  border-radius: 999px;
+  box-shadow: 0 0 24px rgba(0, 255, 136, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.home-projects-link:hover,
+.home-projects-link:focus-visible {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 32px rgba(0, 255, 136, 0.58), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
 /* Runaway Terms Link - Game Element */
 #runaway-terms-link {
   position: fixed;

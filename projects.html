@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Hello world!</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='50' x='50' text-anchor='middle' dominant-baseline='middle' font-size='82'>⌚</text></svg>">
+    <link rel="stylesheet" href="projects.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="watch-home" aria-labelledby="projects-title">
+        <div class="watch-shell" aria-hidden="true">
+            <span class="watch-shell__crown"></span>
+            <span class="watch-shell__button"></span>
+        </div>
+
+        <section class="watch-face" aria-label="Apple Watch inspired projects launcher">
+            <div class="watch-face__status" aria-hidden="true">
+                <span>10:09</span>
+                <span class="status-dot"></span>
+            </div>
+
+            <div class="app-grid" id="project-grid">
+                <a class="project-app project-app--time-tracker" href="projects/time-tracker.html" data-grid-x="0" data-grid-y="0" style="--app-x: 0px; --app-y: 0px; --i: 1;" aria-label="Open Time Tracker project">
+                    <span class="project-app__icon" aria-hidden="true">
+                        <svg viewBox="0 0 96 96" role="img">
+                            <defs>
+                                <linearGradient id="timeTrackerGradient" x1="20" x2="76" y1="14" y2="82" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#fff7df"/>
+                                    <stop offset="0.5" stop-color="#7f77dd"/>
+                                    <stop offset="1" stop-color="#201749"/>
+                                </linearGradient>
+                            </defs>
+                            <rect width="96" height="96" rx="48" fill="url(#timeTrackerGradient)"/>
+                            <circle cx="48" cy="48" r="30" fill="rgba(6, 7, 20, 0.7)" stroke="rgba(255,255,255,0.62)" stroke-width="4"/>
+                            <path d="M48 28v21l16 10" fill="none" stroke="#fff7df" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="48" cy="48" r="5" fill="#fff7df"/>
+                        </svg>
+                    </span>
+                    <span class="project-app__label">Time Tracker</span>
+                </a>
+
+                <button class="project-app project-app--soon project-app--notes" type="button" data-grid-x="-1" data-grid-y="0" style="--app-x: 0px; --app-y: 0px; --i: 2;" aria-label="Notes project coming soon">
+                    <span class="project-app__icon" aria-hidden="true">✦</span>
+                    <span class="project-app__label">Next</span>
+                </button>
+                <button class="project-app project-app--soon project-app--lab" type="button" data-grid-x="1" data-grid-y="0" style="--app-x: 0px; --app-y: 0px; --i: 3;" aria-label="Lab project coming soon">
+                    <span class="project-app__icon" aria-hidden="true">⚗</span>
+                    <span class="project-app__label">Lab</span>
+                </button>
+                <button class="project-app project-app--soon project-app--spark" type="button" data-grid-x="-0.5" data-grid-y="1" style="--app-x: 0px; --app-y: 0px; --i: 4;" aria-label="Spark project coming soon">
+                    <span class="project-app__icon" aria-hidden="true">✺</span>
+                    <span class="project-app__label">Spark</span>
+                </button>
+                <button class="project-app project-app--soon project-app--ship" type="button" data-grid-x="0.5" data-grid-y="1" style="--app-x: 0px; --app-y: 0px; --i: 5;" aria-label="Ship project coming soon">
+                    <span class="project-app__icon" aria-hidden="true">↗</span>
+                    <span class="project-app__label">Ship</span>
+                </button>
+                <button class="project-app project-app--soon project-app--dots" type="button" data-grid-x="-0.5" data-grid-y="-1" style="--app-x: 0px; --app-y: 0px; --i: 6;" aria-label="More projects coming soon">
+                    <span class="project-app__icon" aria-hidden="true">•••</span>
+                    <span class="project-app__label">More</span>
+                </button>
+                <button class="project-app project-app--soon project-app--moon" type="button" data-grid-x="0.5" data-grid-y="-1" style="--app-x: 0px; --app-y: 0px; --i: 7;" aria-label="Moon project coming soon">
+                    <span class="project-app__icon" aria-hidden="true">◐</span>
+                    <span class="project-app__label">Moon</span>
+                </button>
+            </div>
+        </section>
+
+        <aside class="projects-copy">
+            <p class="eyebrow">Projects</p>
+            <h1 id="projects-title">Tap an app to launch a project.</h1>
+            <p>Drag the app cloud around like an Apple Watch home screen. The icons stretch, ease, and spring back with the same playful, glassy feel.</p>
+            <a class="back-link" href="index.html">← Back home</a>
+        </aside>
+    </main>
+
+    <script src="projects.js"></script>
+</body>
+</html>
