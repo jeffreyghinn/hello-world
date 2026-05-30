@@ -204,23 +204,26 @@ main p {
   border-radius: 10px;
   cursor: pointer;
   text-decoration: none;
-  transition: left 0.08s linear, top 0.08s linear;
+  --runaway-terms-offset-x: -50%;
+  --runaway-terms-scale: 1;
+  transition: left 0.08s linear, top 0.08s linear, box-shadow 0.15s ease;
   box-shadow: 0 0 20px rgba(255, 0, 102, 0.5);
   z-index: 1000;
   user-select: none;
   pointer-events: all;
   top: calc(50vh + 200px);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(var(--runaway-terms-offset-x)) scale(var(--runaway-terms-scale));
+  transform-origin: center;
 }
 
 #runaway-terms-link:hover {
+  --runaway-terms-scale: 1.05;
   box-shadow: 0 0 30px rgba(255, 0, 102, 0.8);
-  transform: scale(1.05);
 }
 
 #runaway-terms-link:active {
-  transform: scale(0.95);
+  --runaway-terms-scale: 0.95;
 }
 
 /* Success Animation */
