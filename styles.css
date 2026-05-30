@@ -60,6 +60,114 @@ main {
   text-align: center;
 }
 
+.level-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  color: #00ff88;
+  background: rgba(0, 0, 0, 0.45);
+  border: 2px solid #00ff88;
+  border-radius: 999px;
+  box-shadow: 0 0 18px rgba(0, 255, 136, 0.4), inset 0 0 16px rgba(0, 255, 136, 0.08);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.level-indicator__label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+}
+
+.level-odometer {
+  position: relative;
+  display: inline-block;
+  width: 2.1rem;
+  height: 2.6rem;
+  overflow: hidden;
+  color: #111827;
+  background: linear-gradient(180deg, #f8fafc 0%, #cbd5e1 48%, #f8fafc 52%, #94a3b8 100%);
+  border: 2px solid #0f172a;
+  border-radius: 0.4rem;
+  box-shadow: inset 0 8px 10px rgba(255, 255, 255, 0.5), inset 0 -8px 10px rgba(15, 23, 42, 0.3);
+}
+
+.level-odometer::before,
+.level-odometer::after {
+  position: absolute;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 32%;
+  content: "";
+  pointer-events: none;
+}
+
+.level-odometer::before {
+  top: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.38), rgba(15, 23, 42, 0));
+}
+
+.level-odometer::after {
+  bottom: 0;
+  background: linear-gradient(0deg, rgba(15, 23, 42, 0.38), rgba(15, 23, 42, 0));
+}
+
+.level-odometer__reel {
+  display: block;
+  transform: translateY(0);
+}
+
+.level-indicator.level-indicator--level-up .level-odometer__reel {
+  animation: odometerRoll 1.15s cubic-bezier(0.2, 0.8, 0.2, 1) 0.35s forwards;
+}
+
+.level-odometer__digit {
+  display: grid;
+  height: 2.6rem;
+  place-items: center;
+  font-size: 1.8rem;
+  font-weight: 900;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.level-indicator__sr-value {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes odometerRoll {
+  0% {
+    transform: translateY(0);
+  }
+  76% {
+    transform: translateY(-2.82rem);
+  }
+  88% {
+    transform: translateY(-2.48rem);
+  }
+  100% {
+    transform: translateY(-2.6rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .level-indicator.level-indicator--level-up .level-odometer__reel {
+    animation-duration: 0.01ms;
+    animation-delay: 0s;
+  }
+}
+
 #intro-heading {
   color: #ffffff;
   font-size: 2rem;
