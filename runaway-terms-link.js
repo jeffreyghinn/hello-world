@@ -89,6 +89,13 @@ if (link) {
       /* Allow the link to be positioned anywhere on the page */
       link.style.position = "absolute";
 
+      /*
+      Once JavaScript places the link, stop using the initial centering offset.
+      This keeps hover scaling centered on the current position instead of
+      shifting the link sideways when the hover state changes.
+      */
+      link.style.setProperty("--runaway-terms-offset-x", "0");
+
       /* Apply the new location to the link */
       link.style.left = `${newX}px`;
       link.style.top = `${newY}px`;
