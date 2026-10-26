@@ -2,4 +2,4 @@
 
 This is my personal site.
 
-Jeffrey Ghinn
+*Jeffrey Ghinn*
