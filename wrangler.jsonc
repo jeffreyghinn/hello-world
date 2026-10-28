@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  // Must match the Worker name in Cloudflare (hello-world.jeffreyghinn.workers.dev)
+  "name": "hello-world",
+  "compatibility_date": "2026-10-28",
+  "assets": {
+    // Vite builds the site into dist/
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}

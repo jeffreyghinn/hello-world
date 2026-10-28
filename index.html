@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta charset="UTF-8">
         <title>Hello world!</title>
-        
+
         <!-- Make sure the page scales correctly on mobile -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <!-- Link to stylesheet -->
-        <link rel="stylesheet" href="styles.css"/>
 
         <!-- Link to Google font Inter -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,8 +14,8 @@
     </head>
 
     <body class="inter-font">
-        <header>
-            <h1>Hello world!</h1>
-        </header>
+        <!-- React renders the app into this element -->
+        <div id="root"></div>
+        <script type="module" src="/src/main.jsx"></script>
     </body>
 </html>
