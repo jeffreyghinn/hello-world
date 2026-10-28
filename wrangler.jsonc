@@ -7,9 +7,6 @@
     // Vite builds the site into dist/
     "directory": "./dist",
     "not_found_handling": "single-page-application"
-  }
-}
-
-{
+  },
   "previews": {}
 }
