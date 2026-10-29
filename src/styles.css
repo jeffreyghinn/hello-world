@@ -12,9 +12,3 @@ body {
     margin-top: 2rem;
     font-style: italic;
 }
-
-.footer {
-    display: "flex";
-    justify-content: center;
-    margin: 0;
-}
