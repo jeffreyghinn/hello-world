@@ -1,5 +1,7 @@
 export default function Footer() {
-    const today = new Date().toLocaleDateString();
+    const today = new Date().toLocaleDateString({
+        dateStyle: 'full'
+    });
     return (
         <>
         <div className="footer">
