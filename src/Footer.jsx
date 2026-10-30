@@ -1,6 +1,9 @@
 export default function Footer() {
     const today = new Date().toLocaleDateString({
-        dateStyle: 'full'
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
     });
     return (
         <>
