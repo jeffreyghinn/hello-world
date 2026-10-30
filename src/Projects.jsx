@@ -5,6 +5,10 @@ const projects = [
         linkUrl: "https://apps.microsoft.com/detail/9nf0jnjqqtzt?hl=en-US&gl=TO",
         linkText: "View in the Microsoft Store",
     },
+    {
+        name: "Swoop Minimizer",
+        description: "Swoop Minimizer adds an effect to the action of minimizing any window. It swoops down into the taskbar, similar to effects available on other mainstream operating systems. This is currently in development, to be released soon."
+    },
 ];
 
 export default function Projects() {
