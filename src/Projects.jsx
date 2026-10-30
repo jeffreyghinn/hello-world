@@ -16,7 +16,7 @@ export default function Projects() {
                     <li key={p.name}>
                         <h4>{p.name}</h4>
                         <p>{p.description}</p>
-                        <a href={p.linkUrl}>{p.linkText}</a>
+                        <a href={p.linkUrl} target="_blank">{p.linkText}</a>
                     </li>
                 ))}
             </ul>
