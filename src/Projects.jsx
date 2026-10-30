@@ -7,6 +7,7 @@ const projects = [
     },
     {
         name: "Swoop Minimizer",
+        description: "Swoop Minimizer adds an effect to the action of minimizing a window in any app. It scoops down into the taskbar, similar to the effect available on other mainstream operating systems. This is currently in development, to be released soon."
     },
 ];
 
