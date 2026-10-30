@@ -2,7 +2,8 @@ const projects = [
     {
         name: "WinUI Notes",
         description: "WinUI Notes is a simple, fast, and lightweight note-taking app for Windows. Whether you're jotting down ideas, creating reminders, or keeping important information close at hand, WinUI Notes provides a clean and distraction-free experience.",
-        link: "https://apps.microsoft.com/detail/9nf0jnjqqtzt?hl=en-US&gl=TO",
+        linkUrl: "https://apps.microsoft.com/detail/9nf0jnjqqtzt?hl=en-US&gl=TO",
+        linkText: "View in the Microsoft Store",
     },
 ];
 
@@ -15,7 +16,7 @@ export default function Projects() {
                     <li key={p.name}>
                         <h4>{p.name}</h4>
                         <p>{p.description}</p>
-                        <a href={p.link}>Check it out</a>
+                        <a href={p.linkUrl} target="_blank">{p.linkText}</a>
                     </li>
                 ))}
             </ul>
