@@ -5,6 +5,9 @@ const projects = [
         linkUrl: "https://apps.microsoft.com/detail/9nf0jnjqqtzt?hl=en-US&gl=TO",
         linkText: "View in the Microsoft Store",
     },
+    {
+        name: "Swoop Minimizer",
+    },
 ];
 
 export default function Projects() {
