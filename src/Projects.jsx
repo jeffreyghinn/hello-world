@@ -10,6 +10,7 @@ const projects = [
 export default function Projects() {
     return (
         <>
+            <div className="projects-section">
             <h2>A few personal projects</h2>
             <ul>
                 {projects.map((p) => (
@@ -20,6 +21,7 @@ export default function Projects() {
                     </li>
                 ))}
             </ul>
+            </div>
         </>
     )
 }
