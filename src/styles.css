@@ -32,6 +32,7 @@ body {
         black 70%,
         transparent 100%
     );
+    margin-top: 4rem;
 }
 
 .social-icons {
