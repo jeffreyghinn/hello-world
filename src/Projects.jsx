@@ -25,7 +25,7 @@ export default function Projects() {
                         {p.storeProductId ? (
                             <StoreBadge productId={p.storeProductId} productName={p.name} />
                         ) : p.linkUrl && (
-                            <a href={p.linkUrl} target="_blank">{p.linkText}</a>
+                            <a href={p.linkUrl} target="_blank" rel="noopener noreferrer">{p.linkText}</a>
                         )}
                     </li>
                 ))}
