@@ -19,8 +19,7 @@ export default function StoreBadge({ productId, productName }) {
     return (
         <ms-store-badge
             productid={productId}
-            productname={productName}
-            window-mode="direct"
+            window-mode="full"
             theme="auto"
             size="small"
             language="en-us"
