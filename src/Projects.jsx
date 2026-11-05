@@ -8,7 +8,8 @@ const projects = [
     },
     {
         name: "Swoop Minimizer",
-        description: "Swoop Minimizer adds an effect to the action of minimizing any window. It swoops down into the taskbar, similar to effects available on other mainstream operating systems. This is currently in development, to be released soon."
+        description: "Swoop Minimize gives minimizing a little character. When you minimize a window, it swoops down into the taskbar in one smooth, curving motion and lands in a taskbar button of its own. The button shows a miniature of the window with the app's icon in the corner, so you can see at a glance what's waiting for you. Hover over it for a larger picture, and click it to swoop the window back out to exactly where it was."
+        storeProductId: "9N20DF817NXS",
     },
 ];
 
