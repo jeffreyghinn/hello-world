@@ -7,7 +7,7 @@ const projects = [
         storeProductId: "9nf0jnjqqtzt",
     },
     {
-        name: "Swoop Minimizer",
+        name: "Swoop Minimize",
         description: "Swoop Minimize gives minimizing a little character. When you minimize a window, it swoops down into the taskbar in one smooth, curving motion and lands in a taskbar button of its own. The button shows a miniature of the window with the app's icon in the corner, so you can see at a glance what's waiting for you. Hover over it for a larger picture, and click it to swoop the window back out to exactly where it was.",
         storeProductId: "9N20DF817NXS",
     },
