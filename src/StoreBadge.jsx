@@ -18,6 +18,9 @@ export default function StoreBadge({ productId, productName }) {
 
     return (
         <ms-store-badge
+            ref={(badge) => {
+                badge?.setAttribute("size", "small");
+            }}
             productid={productId}
             window-mode="full"
             theme="auto"
