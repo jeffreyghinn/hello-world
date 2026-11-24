@@ -10,10 +10,10 @@ export default function Footer() {
             <p>Today is {today}</p>
             <div className="social-icons">
                 <a href="https://www.linkedin.com/in/jeffrey-ghinn-440908230/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
-                    <FaLinkedin size={24} color="blue">LinkedIn</FaLinkedin>
+                    <FaLinkedin size={24} color="currentColor">LinkedIn</FaLinkedin>
                 </a>
                 <a href="https://github.com/jeffreyghinn" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
-                    <FaGithub size={24} color="black">GitHub</FaGithub>
+                    <FaGithub size={24} color="currentColor">GitHub</FaGithub>
                 </a>
             </div>
         </div>
