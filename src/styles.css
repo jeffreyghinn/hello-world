@@ -41,3 +41,67 @@ body {
     align-items: center;
     gap: 1rem;
 }
+
+.waving-hand-link {
+    position: fixed;
+    right: calc(1rem + env(safe-area-inset-right, 0px));
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    z-index: 100;
+
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+
+    border-radius: 50%;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.waving-hand-emoji {
+    display: inline-block;
+    font-size: 2rem;
+    line-height: 1;
+    transform-origin: 70% 75%;
+}
+
+.waving-hand-link:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+}
+
+.waving-hand-link:focus-visible .waving-hand-emoji {
+    animation: corner-hand-wave 800ms ease-in-out;
+}
+
+/* Only apply hover behavior on devices that support hovering. */
+@media (hover: hover) {
+    .waving-hand-link:hover .waving-hand-emoji {
+        animation: corner-hand-wave 800ms ease-in-out infinite;
+    }
+}
+
+@keyframes corner-hand-wave {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+
+    20%, 60% {
+        transform: rotate(20deg);
+    }
+
+    40%, 80% {
+        transform: rotate(-12deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .waving-hand-link .waving-hand-emoji {
+        animation: none;
+    }
+}
+
+.secret-screen {
+    max-width: 40rem;
+    margin: 4rem auto;
+}
